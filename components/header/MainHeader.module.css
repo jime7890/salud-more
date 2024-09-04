@@ -1,0 +1,39 @@
+.header {
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+
+    border-bottom: 1px solid var(--banner-border-color);
+    color: var(--text-color);
+}
+
+.header a {
+    text-decoration: none;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    line-height: 16px;
+    max-width: 1280px;
+    width: 100%;
+}
+
+.logo {
+    font-weight: 700;
+}
+
+.logo a{
+    color: rgb(244, 85, 0);
+}
+
+.link {
+    display: flex;
+    gap: 1.125rem;
+    font-weight: 500;
+}
+
+.link a:hover{
+    color: rgb(0, 99, 238);
+}
