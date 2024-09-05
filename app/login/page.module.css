@@ -15,7 +15,7 @@
     gap: 1.5rem;
     padding: 2rem;
     
-    background-color: rgba(118, 203, 255, 0.649);
+    background-color: rgba(170, 222, 255, 0.649);
     color: black;
 }
 
@@ -24,6 +24,14 @@
     flex-direction: column;
     justify-content: center;
     padding: 2rem;
+}
+
+.error {
+    color: red;
+    font-weight: 500;
+    margin: 0;
+    margin-top: -12px;
+    font-size: 0.875rem;
 }
 
 .form {

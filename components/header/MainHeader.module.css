@@ -30,10 +30,21 @@
 
 .link {
     display: flex;
-    gap: 1.125rem;
+    gap: 0.5rem;
     font-weight: 500;
 }
 
-.link a:hover{
-    color: rgb(0, 99, 238);
+.link span {
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.link span:hover {
+    background-color: rgb(230, 238, 255);
+    color: rgb(35, 35, 35);
+}
+
+.logout {
+    all: unset;
 }

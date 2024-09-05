@@ -1,13 +1,11 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { signIn } from "@/lib/auth";
 
 export async function login(formData){
-    const email = formData.get("email");
-    const password = formData.get("password");
-
-    console.log("Attempting to login");
-    console.log(email, password);
-
-    redirect("/dashboard");
+    await signIn("credentials", {
+        redirectTo: "/dashboard",
+        email: formData.get("email"),
+        password: formData.get("password")
+    });
 }

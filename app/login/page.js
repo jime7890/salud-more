@@ -1,9 +1,25 @@
-/* eslint-disable react/no-unescaped-entities */
-import Link from "next/link"
-import styles from "./page.module.css"
-import { login } from "@/actions/login"
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import styles from "./page.module.css";
+import { login } from "@/actions/login";
 
 export default function LoginPage() {
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+
+        try {
+            await login(formData);
+        } catch (error) {
+            setErrorMessage("Incorrect email or password");
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles['left-col']}>
@@ -12,17 +28,19 @@ export default function LoginPage() {
             </div>
 
             <div className={styles['right-col']}>
-                <form className={styles.form} action={login}>
+                <form className={styles.form} onSubmit={handleSubmit}>
                     <h1 className={styles.title}>Welcome Back!</h1>
+
+                    {errorMessage && <p className={styles.error}>{errorMessage}</p>}
 
                     <div className={styles['form-layout']}>
                         <label>Email</label>
-                        <input type="email" name="email" placeholder="Your Email" autoFocus required></input>
+                        <input type="email" name="email" placeholder="Your Email" autoFocus required />
                     </div>
 
                     <div className={styles['form-layout']}>
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="Your Password" required ></input>
+                        <input type="password" name="password" placeholder="Your Password" required />
                     </div>
 
                     <button type="submit" className={styles.button}>Login</button>
@@ -30,5 +48,5 @@ export default function LoginPage() {
                 </form>
             </div>
         </div>
-    )
+    );
 }
