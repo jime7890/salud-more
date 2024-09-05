@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link"
 import styles from "./page.module.css"
-import signup from "@/actions/signup"
+import { signup } from "@/actions/signup";
 
 export default function SignupPage() {
     return (
