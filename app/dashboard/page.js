@@ -11,8 +11,8 @@ export default async function DashboardPage() {
     }
 
     return (
-        <div>
-            This is the dashboard page :D
+        <div className={styles.container}>
+            Welcome to your dashboard :D
         </div>
     )
 }

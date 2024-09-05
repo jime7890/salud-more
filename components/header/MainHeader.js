@@ -15,6 +15,10 @@ export default async function MainHeader() {
 
                 {session !== null ?
                     <form action={signout} className={styles.link}>
+                        <Link href="/dashboard">
+                            <span>Dashboard</span>
+                        </Link>
+
                         <button type="submit" className={styles.logout}>
                             <span>Log out</span>
                         </button>
