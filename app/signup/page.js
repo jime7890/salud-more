@@ -8,7 +8,7 @@ export default function SignupPage() {
         <div className={styles.container}>
             <div className={styles['left-col']}>
                 <h1>Create an account</h1>
-                <p>We'll need your email address and a password. You'll use this login to access Saludmore next time.</p>
+                <p>We'll need an email address and a unique password. You'll use this login to access Saludmore next time.</p>
             </div>
 
             <div className={styles['right-col']}>

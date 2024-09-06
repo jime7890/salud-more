@@ -16,21 +16,21 @@ export default async function MainHeader() {
                 {session !== null ?
                     <form action={signout} className={styles.link}>
                         <Link href="/dashboard">
-                            <span>Dashboard</span>
+                            Dashboard
                         </Link>
 
                         <button type="submit" className={styles.logout}>
-                            <span>Log out</span>
+                            Log out
                         </button>
                     </form>
                     :
                     <div className={styles.link}>
                         <Link href="/login">
-                            <span>Login</span>
+                            Login
                         </Link>
 
                         <Link href="/signup">
-                            <span>Signup</span>
+                            Signup  
                         </Link>
                     </div>
                 }
