@@ -20,39 +20,96 @@
   }
 }
 
-/* Main Container */
+.div {
+  width: 100%;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 0.875rem;
+}
 
-.container {
+.tabs {
   max-width: 1080px;
-  padding: 1rem;
+  padding: 36px 0px 2px 16px;
   margin: auto;
+
+  display: flex;
+  gap: 0.35rem;
 }
 
-.patient {
-  text-align: right;
-  line-height: 50px;
-  font-weight: 400;
+.tabs a {
+  text-decoration: none;
+  padding: 0.5rem;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+
+  background-color: rgb(225, 227, 232);
 }
 
+.tabs a:hover {
+  background-color: rgb(222, 225, 231);
+}
+
+/* Main Container */
 .grid {
   display: grid;
   grid-template-columns: 25% 75%;
   gap: 1rem;
+
+  max-width: 1080px;
+  padding: 1rem;
+  margin: auto;
+  font-size: 0.875rem;
 }
 
-
+.left-col,
 .right-col {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+.date-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.button {
+  all: unset;
+  color: rgb(95, 99, 104);
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  height: 20px;
+  width: 20px;
+}
+
+.button:hover {
+  color: rgb(66, 69, 73);
+}
+
+.date-styling {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgb(216, 216, 216);
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
 .card {
   padding: 1rem;
   border-radius: 6px;
-  background-color: rgb(230, 216, 202);
+  background-color: rgb(225, 227, 232);
 }
 
-.active {
-  color: rgb(0, 128, 255);
+@media only screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .left-col {
+    display: none;
+  }
 }
