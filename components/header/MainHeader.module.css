@@ -32,7 +32,7 @@
 .link {
     display: flex;
     gap: 0.5rem;
-    font-weight: 500;
+    font-weight: 450;
 }
 
 .link span {
