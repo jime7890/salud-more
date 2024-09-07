@@ -9,9 +9,7 @@ export default async function DashboardPage() {
         redirect("/");
     }
 
-    let currentDate = new Date().toISOString();
-
     return (
-        <ClientDashboard currentDate={currentDate} />
+        <ClientDashboard />
     )
 }
