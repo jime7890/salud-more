@@ -69,37 +69,29 @@ export default function ClientDashboard({ currentDate }) {
                     </div>
 
                     <div className={styles.card}>
-                        <table className={styles.table}>
-                            <thead className={styles.thead}>
-                                <tr>
-                                    <th>Time</th>
-                                    <th>Systolic</th>
-                                    <th>Diastolic</th>
-                                    <th>Pulse</th>
-                                    <th>Notes</th>
-                                </tr>
-                            </thead>
+                        <div className={styles['filter-card']}>
+                            <div>Time</div>
+                            <div>Systolic</div>
+                            <div>Diastolic</div>
+                            <div>Pulse</div>
+                            <div>Notes</div>
+                        </div>
 
-                            <tbody className={styles.tbody}>
-                                <tr>
-                                    <td>9:40 AM</td>
-                                    <td>130</td>
-                                    <td>125</td>
-                                    <td>80</td>
-                                    <td>Notes</td>
-                                </tr>
+                        <div className={styles['filter-card']}>
+                            <div>9:40 AM</div>
+                            <div>130</div>
+                            <div>135</div>
+                            <div>80</div>
+                            <div>Notes</div>
+                        </div>
 
-                                <tr>
-                                    <td>10:30 AM</td>
-                                    <td>125</td>
-                                    <td>125</td>
-                                    <td>85</td>
-                                    <td>Notes</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-
+                        <div className={styles['filter-card']}>
+                            <div>10:30 AM</div>
+                            <div>125</div>
+                            <div>125</div>
+                            <div>85</div>
+                            <div>Notes</div>
+                        </div>
 
                         <div className={styles['add-container']}>
                             <button className={styles.add}>
@@ -107,6 +99,8 @@ export default function ClientDashboard({ currentDate }) {
                             </button>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

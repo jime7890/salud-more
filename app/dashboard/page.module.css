@@ -26,26 +26,28 @@
   font-size: 0.875rem;
 }
 
-.tabs {
+.tab-container {
   max-width: 1080px;
-  padding: 36px 0px 2px 16px;
+  padding: 36px 0px 0px 16px;
   margin: auto;
 
   display: flex;
   gap: 0.35rem;
 }
 
-.tabs a {
+.tab-container a {
   text-decoration: none;
   padding: 0.5rem;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-
-  background-color: rgb(226, 228, 236);
 }
 
-.tabs a:hover {
-  background-color: rgb(220, 222, 232);
+.inactive:hover {
+  background-color: rgb(228, 230, 239);
+}
+
+.active {
+  background-color: rgb(226, 228, 236);
 }
 
 /* Main Container */
@@ -133,11 +135,21 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-
-  background-color: rgb(226, 228, 236);
   border-radius: 6px;
   padding: 1rem;
   margin-bottom: 1em;
+  text-align: left;
+
+  background-color: rgb(232, 233, 241);
+}
+
+.filter-card:nth-child(1) {
+  font-weight: 500;
+  background-color: rgb(226, 228, 236);
+}
+
+.filter-card > div {
+  width: 20%;
 }
 
 .calendar {
@@ -150,8 +162,8 @@
   border-radius: 6px;
   margin-bottom: 1em;
   text-align: left;
-
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 12px;
 }
 
 .thead th {
@@ -161,10 +173,12 @@
 
 .tbody td {
   padding: 1rem;
-  border-bottom: 1px solid rgb(212, 212, 212);
 }
 
-
+.tbody tr {
+  box-shadow: 0 0 0 1px rgb(212, 212, 212);
+  border-radius: 6px;
+}
 
 .add-container {
   display: flex;
