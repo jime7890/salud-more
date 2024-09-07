@@ -48,7 +48,7 @@
 }
 
 .link a:hover, .logout:hover {
-    background-color: rgb(237, 239, 241);
+    background-color: rgb(231, 233, 238);
     color: rgb(35, 35, 35);
 }
 

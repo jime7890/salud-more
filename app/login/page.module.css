@@ -15,7 +15,7 @@
     gap: 1.5rem;
     padding: 2rem;
     
-    background-color: rgba(170, 222, 255, 0.649);
+    background-color: rgb(222, 242, 254);
     color: black;
 }
 
@@ -38,14 +38,13 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    align-self: flex-start;
     max-width: 375px;
     width: 100%;
 }
 
 .title {
     font-size: 1.375rem;
-    height: 40px;
+    height: 30px;
 }
 
 .form-layout {
@@ -99,7 +98,8 @@
 @media only screen and (max-width: 768px) {
     .container {
         grid-template-columns: 1fr;
-        place-items: center stretch;
+        height: 100%;
+        margin: auto;
     }
 
     .form {

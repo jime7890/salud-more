@@ -43,11 +43,11 @@
 }
 
 .inactive:hover {
-  background-color: rgb(228, 230, 239);
+  background-color: rgb(231, 233, 238);
 }
 
 .active {
-  background-color: rgb(226, 228, 236);
+  background-color: rgb(231, 233, 238);
 }
 
 /* Main Container */
@@ -140,12 +140,12 @@
   margin-bottom: 1em;
   text-align: left;
 
-  background-color: rgb(240, 240, 245);
+  background-color: rgb(242, 242, 246);
 }
 
 .filter-card:nth-child(1) {
   font-weight: 500;
-  background-color: rgb(226, 228, 236);
+  background-color: rgb(231, 233, 238);
 }
 
 .filter-card > div {
@@ -187,6 +187,14 @@
   }
 
   .left-col {
+    display: none;
+  }
+
+  .filter-card > div:last-child {
+    display: none;
+  }
+  
+  .date-header > div:last-child{
     display: none;
   }
 }
