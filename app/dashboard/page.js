@@ -9,9 +9,9 @@ export default async function DashboardPage() {
         redirect("/");
     }
 
-    let currentDay = new Date().getDay();
+    let currentDate = new Date().toISOString();
 
     return (
-        <ClientDashboard currentDay={currentDay} />
+        <ClientDashboard currentDate={currentDate} />
     )
 }

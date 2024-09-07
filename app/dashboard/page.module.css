@@ -6,7 +6,7 @@
   padding: 6px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #b6b6b6;
+  background: #adadad;
   --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
   -webkit-mask: var(--_m);
   mask: var(--_m);
@@ -22,7 +22,7 @@
 
 .div {
   width: 100%;
-  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid #f1f1f1;
   font-size: 0.875rem;
 }
 
@@ -41,17 +41,17 @@
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 
-  background-color: rgb(225, 227, 232);
+  background-color: rgb(226, 228, 236);
 }
 
 .tabs a:hover {
-  background-color: rgb(222, 225, 231);
+  background-color: rgb(220, 222, 232);
 }
 
 /* Main Container */
 .grid {
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 30% 70%;
   gap: 1rem;
 
   max-width: 1080px;
@@ -69,9 +69,43 @@
 
 .date-header {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.5rem;
+}
+
+.date-styling {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgb(212, 212, 212);
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.date-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.reset-button{
+  cursor: pointer;
+  background: none;
+}
+
+.reset-button:hover {
+  background-color: rgb(232, 234, 239);
+}
+
+.reset-button:active {
+  background-color: rgb(227, 229, 235);
+}
+
+.date {
+  width: 145px;
+  text-align: center;
 }
 
 .button {
@@ -89,22 +123,53 @@
   color: rgb(66, 69, 73);
 }
 
-.date-styling {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  border: 1px solid rgb(216, 216, 216);
-  padding: 8px 16px;
-  border-radius: 6px;
-}
-
 .card {
   padding: 1rem;
   border-radius: 6px;
-  background-color: rgb(225, 227, 232);
+  border: 1px solid rgb(212, 212, 212);
 }
 
-@media only screen and (max-width: 768px) {
+.filter-card {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  background-color: rgb(226, 228, 236);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1em;
+}
+
+.calendar {
+  width: auto;
+  height: auto;
+}
+
+.add-container {
+  display: flex;
+  justify-content: right;
+}
+
+.add {
+  display: flex;
+  border-radius: 6px;
+  padding: 0.6rem;
+  border: none;
+  color: white;
+  background-color: rgb(0, 129, 242);
+  align-items: center;
+  cursor: pointer;
+}
+
+.add:hover {
+  background-color: rgb(0, 120, 225);
+}
+
+.add:active {
+  background-color: rgb(2, 112, 208);
+}
+
+@media only screen and (max-width: 968px) {
   .grid {
     grid-template-columns: 1fr;
   }
