@@ -37,7 +37,7 @@
 
 .tab-container a {
   text-decoration: none;
-  padding: 0.5rem;
+  padding: 0.6rem;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
@@ -140,7 +140,7 @@
   margin-bottom: 1em;
   text-align: left;
 
-  background-color: rgb(232, 233, 241);
+  background-color: rgb(240, 240, 245);
 }
 
 .filter-card:nth-child(1) {
@@ -155,29 +155,6 @@
 .calendar {
   width: auto;
   height: auto;
-}
-
-.table {
-  width: 100%;
-  border-radius: 6px;
-  margin-bottom: 1em;
-  text-align: left;
-  border-collapse: separate;
-  border-spacing: 0 12px;
-}
-
-.thead th {
-  padding: 1rem;
-  background-color: rgb(226, 228, 236);
-}
-
-.tbody td {
-  padding: 1rem;
-}
-
-.tbody tr {
-  box-shadow: 0 0 0 1px rgb(212, 212, 212);
-  border-radius: 6px;
 }
 
 .add-container {
