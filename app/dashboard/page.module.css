@@ -23,7 +23,7 @@
 .div {
   width: 100%;
   border-bottom: 1px solid #f1f1f1;
-  font-size: 0.875rem;
+  font-size: 0.813rem;
 }
 
 .tab-container {
@@ -59,7 +59,7 @@
   max-width: 1080px;
   padding: 1rem;
   margin: auto;
-  font-size: 0.875rem;
+  font-size: 0.813rem;
 }
 
 .left-col,
@@ -150,8 +150,21 @@
 
 .filter-card > div {
   display: flex;
+  align-items: center;
   gap: 1rem;
   width: 15%;
+}
+
+.filter-card > input {
+  display: flex;
+  gap: 1rem;
+  width: 15%;
+  border-radius: 6px;
+  border: 1px solid rgb(190, 190, 190);
+}
+
+.filter-card > input:first-child {
+  width: auto;
 }
 
 .calendar-container {

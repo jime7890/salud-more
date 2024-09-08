@@ -12,6 +12,7 @@ import { addEntry } from "@/actions/entries";
 
 export default function ClientDashboard() {
     const now = dayjs();
+
     const [selectedDay, setSelectedDay] = useState(now);
     const [isClient, setIsClient] = useState(false);
 
@@ -83,106 +84,112 @@ export default function ClientDashboard() {
         console.log("Delete item", id)
     }
 
-    const handleUndo = (id) => {
+    const handleUndo = (event, id) => {
+        event.preventDefault();
         setPendingEntry(pendingEntry.filter((prevState) =>
             prevState.id !== id
         ))
-}
+    }
 
-return (
-    <div className={styles.container}>
-        <div className={styles.grid}>
-            <div className={styles['left-col']}>
-                <div className={styles['calendar-container']}>
+    function saveData(event) {
+        event.preventDefault();
+        console.log(event);
+    }
 
-                    {isClient && (
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateCalendar className={styles.calendar} value={selectedDay} onChange={(newValue) => setSelectedDay(newValue)} />
-                        </LocalizationProvider>
-                    )}
+    return (
+        <div className={styles.container}>
+            <div className={styles.grid}>
+                <div className={styles['left-col']}>
+                    <div className={styles['calendar-container']}>
 
+                        {isClient && (
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DateCalendar className={styles.calendar} value={selectedDay} onChange={(newValue) => setSelectedDay(newValue)} />
+                            </LocalizationProvider>
+                        )}
+
+                    </div>
                 </div>
-            </div>
 
-            <div className={styles['right-col']}>
-                <div className={styles['date-header']}>
+                <div className={styles['right-col']}>
+                    <div className={styles['date-header']}>
 
-                    <div className={styles['date-flex']}>
-                        <div className={styles['date-styling']}>
-                            <button className={styles['button']} onClick={() => handleDateChange(-1)}>
-                                <ChevronLeft />
-                            </button>
+                        <div className={styles['date-flex']}>
+                            <div className={styles['date-styling']}>
+                                <button className={styles['button']} onClick={() => handleDateChange(-1)}>
+                                    <ChevronLeft />
+                                </button>
 
-                            <div className={styles.date}>
-                                {selectedDay.format('dddd, MMM D')}
+                                <div className={styles.date}>
+                                    {selectedDay.format('dddd, MMM D')}
+                                </div>
+
+                                <button className={styles['button']} onClick={() => handleDateChange(1)}>
+                                    <ChevronRight />
+                                </button>
                             </div>
 
-                            <button className={styles['button']} onClick={() => handleDateChange(1)}>
-                                <ChevronRight />
+                            <button className={`${styles['date-styling']} ${styles['reset-button']}`} onClick={resetDate}>
+                                Reset
                             </button>
                         </div>
 
-                        <button className={`${styles['date-styling']} ${styles['reset-button']}`} onClick={resetDate}>
-                            Reset
-                        </button>
+                        <div className={styles['date-styling']}>
+                            Cesar Jimenez
+                        </div>
                     </div>
 
-                    <div className={styles['date-styling']}>
-                        Cesar Jimenez
-                    </div>
-                </div>
+                    <div className={styles.card}>
+                        <div className={styles['filter-card']}>
+                            <div>Time</div>
+                            <div>Systolic</div>
+                            <div>Diastolic</div>
+                            <div>Pulse</div>
+                            <div>Actions</div>
+                        </div>
 
-                <div className={styles.card}>
-                    <div className={styles['filter-card']}>
-                        <div>Time</div>
-                        <div>Systolic</div>
-                        <div>Diastolic</div>
-                        <div>Pulse</div>
-                        <div>Actions</div>
-                    </div>
-
-                    {/* Data fetched from the server to be displayed*/}
-                    {entries.map((tracker) => {
-                        return (
-                            <div key={tracker.id} className={styles['filter-card']}>
-                                <div>{tracker.time}</div>
-                                <div>{tracker.systolic}</div>
-                                <div>{tracker.diastolic}</div>
-                                <div>{tracker.pulse}</div>
-                                <div className={styles.action}>
-                                    <button className={styles.button} onClick={() => handleEditClick(tracker.id)}><Pencil /></button>
-                                    <button className={styles.button} onClick={() => handleDelete(tracker.id)}><Trash2 /></button>
+                        {/* Data fetched from the server to be displayed*/}
+                        {entries.map((tracker) => {
+                            return (
+                                <div key={tracker.id} className={styles['filter-card']}>
+                                    <div>{tracker.time}</div>
+                                    <div>{tracker.systolic}</div>
+                                    <div>{tracker.diastolic}</div>
+                                    <div>{tracker.pulse}</div>
+                                    <div className={styles.action}>
+                                        <button className={styles.button} onClick={() => handleEditClick(tracker.id)}><Pencil /></button>
+                                        <button className={styles.button} onClick={() => handleDelete(tracker.id)}><Trash2 /></button>
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
 
-                    {/* Data that is waiting to be submitted */}
-                    {pendingEntry.map((entry) => {
-                        return (
-                            <div key={entry.id} className={styles['filter-card']}>
-                                <div contentEditable suppressContentEditableWarning={true} autoFocus>0</div>
-                                <div contentEditable suppressContentEditableWarning={true}>0</div>
-                                <div contentEditable suppressContentEditableWarning={true}>0</div>
-                                <div contentEditable suppressContentEditableWarning={true}>0</div>
-                                <div className={styles.action}>
-                                    <button className={styles.button} style={{ color: "green" }}><CircleCheck /></button>
-                                    <button className={styles.button} onClick={() => handleUndo(entry.id)}><Undo2 /></button>
-                                </div>
-                            </div>
-                        )
-                    })}
+                        {/* Data that is waiting to be submitted */}
+                        {pendingEntry.map((entry) => {
+                            return (
+                                <form key={entry.id} className={styles['filter-card']}>
+                                    <input type="time" name="time" defaultValue={now.format('HH:mm')}></input>
+                                    <input type="text" name="systolic"></input>
+                                    <input type="text" name="diastolic"></input>
+                                    <input type="text" name="pulse"></input>
+                                    <div className={styles.action}>
+                                        <button className={styles.button} style={{ color: "green" }} onClick={saveData}><CircleCheck /></button>
+                                        <button className={styles.button} onClick={(event) => handleUndo(event, entry.id)}><Undo2 /></button>
+                                    </div>
+                                </form>
+                            )
+                        })}
 
 
-                    <div className={styles['add-container']}>
-                        <button className={styles.add} onClick={addNewEntry}>
-                            Add Tracker
-                        </button>
+                        <div className={styles['add-container']}>
+                            <button className={styles.add} onClick={addNewEntry}>
+                                Add Tracker
+                            </button>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
 }
