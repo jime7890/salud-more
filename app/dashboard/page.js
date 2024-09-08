@@ -12,6 +12,6 @@ export default async function DashboardPage() {
     }
 
     return (
-        <ClientDashboard />
+        <ClientDashboard currentUser={session.user.email}/>
     )
 }

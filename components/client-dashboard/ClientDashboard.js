@@ -10,7 +10,7 @@ import styles from "@/app/dashboard/page.module.css";
 import { ChevronLeft, ChevronRight, CircleCheck, Pencil, Trash2, Undo2 } from "lucide-react";
 import { addEntry } from "@/actions/entries";
 
-export default function ClientDashboard() {
+export default function ClientDashboard({currentUser}) {
     const now = dayjs();
 
     const [selectedDay, setSelectedDay] = useState(now);
@@ -91,10 +91,7 @@ export default function ClientDashboard() {
         ))
     }
 
-    function saveData(event) {
-        event.preventDefault();
-        console.log(event);
-    }
+    const saveData =  addEntry.bind(null, currentUser, selectedDay.format('MM/DD/YYYY'));
 
     return (
         <div className={styles.container}>
@@ -167,13 +164,13 @@ export default function ClientDashboard() {
                         {/* Data that is waiting to be submitted */}
                         {pendingEntry.map((entry) => {
                             return (
-                                <form key={entry.id} className={styles['filter-card']}>
+                                <form key={entry.id} action={saveData} className={styles['filter-card']}>
                                     <input type="time" name="time" defaultValue={now.format('HH:mm')}></input>
                                     <input type="text" name="systolic"></input>
                                     <input type="text" name="diastolic"></input>
                                     <input type="text" name="pulse"></input>
                                     <div className={styles.action}>
-                                        <button className={styles.button} style={{ color: "green" }} onClick={saveData}><CircleCheck /></button>
+                                        <button type="submit" className={styles.button} style={{ color: "green" }}><CircleCheck /></button>
                                         <button className={styles.button} onClick={(event) => handleUndo(event, entry.id)}><Undo2 /></button>
                                     </div>
                                 </form>
