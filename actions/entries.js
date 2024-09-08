@@ -1,8 +1,6 @@
 "use server";
 
 import db from "@/lib/postgres";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export async function addEntry(userId, userDate, formData) {
     const user = userId;
@@ -17,6 +15,15 @@ export async function addEntry(userId, userDate, formData) {
         await db.query(
             "INSERT INTO glucose_readings (user_id, date, time, systolic, diastolic, pulse) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
             [user, date, time, systolic, diastolic, pulse]);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function deleteEntry(formData) {
+    const entry_id = formData.get("entry_id");
+    try {
+        await db.query("DELETE FROM glucose_readings WHERE entry_id = $1", [entry_id])
     } catch (error) {
         console.log(error);
     }

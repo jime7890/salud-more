@@ -2,12 +2,12 @@ import { CircleCheck, Undo2 } from "lucide-react";
 import styles from "./PendingEntryForm.module.css"
 import shared from "../shared.module.css"
 
-export default function EntryForm(props) {
+export default function PendingEntryForm(props) {
     return (
         <>
             {props.data.map((entry) => {
                 return (
-                    <form key={entry.id} action={props.insertEntry} className={shared['filter-card']}>
+                    <form action={props.insertEntry} key={entry.id} className={shared['filter-card']}>
                         <input type="time" name="time" defaultValue={props.currentTime}></input>
                         <input type="number" name="systolic"></input>
                         <input type="number" name="diastolic"></input>

@@ -1,4 +1,4 @@
-import Tabs from "@/components/layout-tabs/tabs";
+import Tabs from "@/components/layout-tabs/Tabs";
 
 export default function DashboardLayout({ children }) {
     return (

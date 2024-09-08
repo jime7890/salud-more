@@ -1,21 +1,22 @@
 import { Pencil, Trash2 } from "lucide-react";
 import shared from "../shared.module.css"
 
-export default function PendingEntries(props) {
+export default function Entries(props) {
     return (
         <>
             {props.data.map((tracker) => {
                 return (
-                    <div key={tracker.id} className={shared['filter-card']}>
+                    <form action={props.handleDelete} key={tracker.entry_id} className={shared['filter-card']}>
+                        <input type="hidden" value={tracker.entry_id} name="entry_id" />
                         <div>{tracker.time}</div>
                         <div>{tracker.systolic}</div>
                         <div>{tracker.diastolic}</div>
                         <div>{tracker.pulse}</div>
                         <div>
                             <button className={shared.button} onClick={() => handleEditClick(tracker.id)}><Pencil /></button>
-                            <button className={shared.button} onClick={() => handleDelete(tracker.id)}><Trash2 /></button>
+                            <button className={shared.button} type="submit"><Trash2 /></button>
                         </div>
-                    </div>
+                    </form>
                 )
             })}
         </>

@@ -3,15 +3,15 @@
 import dayjs from 'dayjs';
 
 import { useState, useEffect } from "react";
-import { addEntry, getEntriesForDate } from "@/actions/entries";
+import { addEntry, deleteEntry, getEntriesForDate } from "@/actions/entries";
 
 import Calendar from "../calendar/Calendar";
 import DateHeader from "../date-header/DateHeader";
-import EntryList from '../entry-list/EntryList';
+import Entries from '../entry-list/EntryList';
 import PendingEntries from '../pending-entry/PendingEntryForm';
 
 import styles from "@/app/dashboard/page.module.css";
-import shared from "../shared.module.css"
+import shared from "../shared.module.css";
 
 export default function ClientDashboard({ currentUser }) {
     // Gets Current Day
@@ -67,8 +67,10 @@ export default function ClientDashboard({ currentUser }) {
     }
 
     // Server Action
-    const handleDelete = (id) => {
-        console.log("Delete item", id)
+    const handleDelete = async (formData) => {
+        await deleteEntry(formData);
+        const latestEntries = await getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD'));
+        setEntries(latestEntries);
     }
 
     // Client Action
@@ -83,7 +85,6 @@ export default function ClientDashboard({ currentUser }) {
             notes: 'Notes'
         }
         setPendingEntry([...pendingEntry, newEntry])
-        console.log(pendingEntry);
     }
 
     // Client Action
@@ -132,7 +133,7 @@ export default function ClientDashboard({ currentUser }) {
                             <div>Actions</div>
                         </div>
 
-                        <EntryList
+                        <Entries
                             data={entries}
                             handleDelete={handleDelete}
                             handleEditClick={handleEditClick}
