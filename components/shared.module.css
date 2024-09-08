@@ -1,0 +1,50 @@
+.filter-card {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1em;
+  text-align: left;
+
+  background-color: rgb(245, 246, 248);
+}
+
+.filter-card:nth-child(1) {
+  font-weight: 500;
+  background-color: rgb(231, 233, 238);
+}
+
+.filter-card > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 15%;
+}
+
+.filter-card > input {
+  display: flex;
+  gap: 1rem;
+  width: 15%;
+  border-radius: 6px;
+  border: 1px solid rgb(190, 190, 190);
+}
+
+.filter-card > input:first-child {
+  width: auto;
+}
+
+.button {
+  all: unset;
+  color: rgb(95, 99, 104);
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  height: 15px;
+  width: 18px;
+}
+
+.button:hover {
+  color: rgb(66, 69, 73);
+}

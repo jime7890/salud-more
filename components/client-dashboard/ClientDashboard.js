@@ -1,25 +1,48 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 
-import styles from "@/app/dashboard/page.module.css";
-import { ChevronLeft, ChevronRight, CircleCheck, Pencil, Trash2, Undo2 } from "lucide-react";
-import { addEntry } from "@/actions/entries";
+import { useState, useEffect } from "react";
+import { addEntry, getEntriesForDate } from "@/actions/entries";
 
-export default function ClientDashboard({currentUser}) {
+import Calendar from "../calendar/Calendar";
+import DateHeader from "../date-header/DateHeader";
+import EntryList from '../entry-list/EntryList';
+import PendingEntries from '../pending-entry/PendingEntryForm';
+
+import styles from "@/app/dashboard/page.module.css";
+import shared from "../shared.module.css"
+
+export default function ClientDashboard({ currentUser }) {
+    // Gets Current Day
     const now = dayjs();
 
-    const [selectedDay, setSelectedDay] = useState(now);
+    // Default States
     const [isClient, setIsClient] = useState(false);
+    const [selectedDay, setSelectedDay] = useState(now);
+    const [entries, setEntries] = useState([]);
 
     useEffect(() => {
         setIsClient(true);
     }, []);
 
+    useEffect(() => {
+        const fetchEntries = async () => {
+            try {
+                const entries = await getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD'));
+                setEntries(entries);
+            } catch (error) {
+                console.error("Failed to fetch entries:", error);
+            }
+        };
+
+        if (selectedDay) {
+            fetchEntries();
+        }
+    }, [currentUser, selectedDay]);
+
+
+    // Client Action
     function handleDateChange(day) {
         setSelectedDay((prevState) => {
             if (day === -1) {
@@ -36,34 +59,21 @@ export default function ClientDashboard({currentUser}) {
         });
     }
 
-    function resetDate() {
-        setSelectedDay(now);
+    // Server Action
+    const saveData = async (formData) => {
+        await addEntry(currentUser, selectedDay.format('YYYY-MM-DD'), formData);
+        const latestEntries = await getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD'));
+        setEntries(latestEntries);
     }
 
-    let glucoseList = [
-        {
-            id: 1,
-            time: "9:40 AM",
-            systolic: "130",
-            diastolic: "135",
-            pulse: "80",
-            notes: "Notes"
-        },
-        {
-            id: 2,
-            time: "9:40 AM",
-            systolic: "125",
-            diastolic: "130",
-            pulse: "85",
-            notes: "Notes"
-        }
-    ]
+    // Server Action
+    const handleDelete = (id) => {
+        console.log("Delete item", id)
+    }
 
-    const [entries, setEntries] = useState(glucoseList);
-
+    // Client Action
     const [pendingEntry, setPendingEntry] = useState([]);
-
-    const addNewEntry = () => {
+    const addPendingEntry = () => {
         const newEntry = {
             id: Date.now(),
             time: 'Time',
@@ -76,14 +86,12 @@ export default function ClientDashboard({currentUser}) {
         console.log(pendingEntry);
     }
 
+    // Client Action
     const handleEditClick = (id) => {
         console.log("Edit item", id);
     };
 
-    const handleDelete = (id) => {
-        console.log("Delete item", id)
-    }
-
+    // Client Action
     const handleUndo = (event, id) => {
         event.preventDefault();
         setPendingEntry(pendingEntry.filter((prevState) =>
@@ -91,53 +99,32 @@ export default function ClientDashboard({currentUser}) {
         ))
     }
 
-    const saveData =  addEntry.bind(null, currentUser, selectedDay.format('MM/DD/YYYY'));
+    // Client Action
+    function resetDate() {
+        setSelectedDay(now);
+    }
 
     return (
         <div className={styles.container}>
             <div className={styles.grid}>
                 <div className={styles['left-col']}>
-                    <div className={styles['calendar-container']}>
-
-                        {isClient && (
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DateCalendar className={styles.calendar} value={selectedDay} onChange={(newValue) => setSelectedDay(newValue)} />
-                            </LocalizationProvider>
-                        )}
-
-                    </div>
+                    <Calendar
+                        isClient={isClient}
+                        value={selectedDay}
+                        onChange={(newValue) => setSelectedDay(newValue)}
+                    />
                 </div>
 
                 <div className={styles['right-col']}>
-                    <div className={styles['date-header']}>
-
-                        <div className={styles['date-flex']}>
-                            <div className={styles['date-styling']}>
-                                <button className={styles['button']} onClick={() => handleDateChange(-1)}>
-                                    <ChevronLeft />
-                                </button>
-
-                                <div className={styles.date}>
-                                    {selectedDay.format('dddd, MMM D')}
-                                </div>
-
-                                <button className={styles['button']} onClick={() => handleDateChange(1)}>
-                                    <ChevronRight />
-                                </button>
-                            </div>
-
-                            <button className={`${styles['date-styling']} ${styles['reset-button']}`} onClick={resetDate}>
-                                Reset
-                            </button>
-                        </div>
-
-                        <div className={styles['date-styling']}>
-                            Cesar Jimenez
-                        </div>
-                    </div>
+                    <DateHeader
+                        selectedDay={selectedDay}
+                        resetDate={resetDate}
+                        goForwardADay={() => handleDateChange(1)}
+                        goBackADay={() => handleDateChange(-1)}
+                    />
 
                     <div className={styles.card}>
-                        <div className={styles['filter-card']}>
+                        <div className={shared['filter-card']}>
                             <div>Time</div>
                             <div>Systolic</div>
                             <div>Diastolic</div>
@@ -145,46 +132,20 @@ export default function ClientDashboard({currentUser}) {
                             <div>Actions</div>
                         </div>
 
-                        {/* Data fetched from the server to be displayed*/}
-                        {entries.map((tracker) => {
-                            return (
-                                <div key={tracker.id} className={styles['filter-card']}>
-                                    <div>{tracker.time}</div>
-                                    <div>{tracker.systolic}</div>
-                                    <div>{tracker.diastolic}</div>
-                                    <div>{tracker.pulse}</div>
-                                    <div className={styles.action}>
-                                        <button className={styles.button} onClick={() => handleEditClick(tracker.id)}><Pencil /></button>
-                                        <button className={styles.button} onClick={() => handleDelete(tracker.id)}><Trash2 /></button>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                        <EntryList
+                            data={entries}
+                            handleDelete={handleDelete}
+                            handleEditClick={handleEditClick}
+                        />
 
-                        {/* Data that is waiting to be submitted */}
-                        {pendingEntry.map((entry) => {
-                            return (
-                                <form key={entry.id} action={saveData} className={styles['filter-card']}>
-                                    <input type="time" name="time" defaultValue={now.format('HH:mm')}></input>
-                                    <input type="text" name="systolic"></input>
-                                    <input type="text" name="diastolic"></input>
-                                    <input type="text" name="pulse"></input>
-                                    <div className={styles.action}>
-                                        <button type="submit" className={styles.button} style={{ color: "green" }}><CircleCheck /></button>
-                                        <button className={styles.button} onClick={(event) => handleUndo(event, entry.id)}><Undo2 /></button>
-                                    </div>
-                                </form>
-                            )
-                        })}
-
-
-                        <div className={styles['add-container']}>
-                            <button className={styles.add} onClick={addNewEntry}>
-                                Add Tracker
-                            </button>
-                        </div>
+                        <PendingEntries
+                            data={pendingEntry}
+                            insertEntry={saveData}
+                            addPendingEntry={addPendingEntry}
+                            handleUndo={handleUndo}
+                            currentTime={now.format('HH:mm')}
+                        />
                     </div>
-
                 </div>
             </div>
         </div>

@@ -1,0 +1,55 @@
+.date-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.date-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.date-styling {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgb(212, 212, 212);
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.date {
+  width: 145px;
+  text-align: center;
+}
+
+.button {
+  all: unset;
+  color: rgb(95, 99, 104);
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  height: 15px;
+  width: 18px;
+}
+
+.button:hover {
+  color: rgb(66, 69, 73);
+}
+
+.reset-button {
+  cursor: pointer;
+  background: none;
+}
+
+.reset-button:hover {
+  background-color: rgb(232, 234, 239);
+}
+
+.reset-button:active {
+  background-color: rgb(227, 229, 235);
+}

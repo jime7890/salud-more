@@ -65,6 +65,7 @@
 .left-col,
 .right-col {
   display: flex;
+  align-self: flex-start;
   flex-direction: column;
   gap: 0.5rem;
 }
@@ -92,120 +93,11 @@
   gap: 0.25rem;
 }
 
-.reset-button {
-  cursor: pointer;
-  background: none;
-}
-
-.reset-button:hover {
-  background-color: rgb(232, 234, 239);
-}
-
-.reset-button:active {
-  background-color: rgb(227, 229, 235);
-}
-
-.date {
-  width: 145px;
-  text-align: center;
-}
-
-.button {
-  all: unset;
-  color: rgb(95, 99, 104);
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  height: 15px;
-  width: 18px;
-}
-
-.button:hover {
-  color: rgb(66, 69, 73);
-}
-
 .card {
   padding: 1rem;
   border-radius: 6px;
   border: 1px solid rgb(212, 212, 212);
 }
-
-.filter-card {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  border-radius: 6px;
-  padding: 1rem;
-  margin-bottom: 1em;
-  text-align: left;
-
-  background-color: rgb(245, 246, 248);
-}
-
-.filter-card:nth-child(1) {
-  font-weight: 500;
-  background-color: rgb(231, 233, 238);
-}
-
-.filter-card > div {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 15%;
-}
-
-.filter-card > input {
-  display: flex;
-  gap: 1rem;
-  width: 15%;
-  border-radius: 6px;
-  border: 1px solid rgb(190, 190, 190);
-}
-
-.filter-card > input:first-child {
-  width: auto;
-}
-
-.calendar-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 100%;
-  overflow: hidden;
-  border: 1px solid rgb(212, 212, 212);
-  border-radius: 6px;
-}
-
-.calendar {
-  width: 100%;
-  height: auto;
-}
-
-.add-container {
-  display: flex;
-  justify-content: right;
-}
-
-.add {
-  display: flex;
-  border-radius: 6px;
-  padding: 0.6rem;
-  border: none;
-  color: white;
-  background-color:  #1976d2;
-  align-items: center;
-  cursor: pointer;
-}
-
-.add:hover {
-  background-color: rgb(0, 120, 225);
-}
-
-.add:active {
-  background-color: rgb(2, 112, 208);
-}
-
 
 @media only screen and (max-width: 968px) {
   .grid {

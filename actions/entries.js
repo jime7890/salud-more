@@ -2,19 +2,31 @@
 
 import db from "@/lib/postgres";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-export async function addEntry(currentUser, userDate, formData) {
-    const user = currentUser;
-    
+export async function addEntry(userId, userDate, formData) {
+    const user = userId;
+
     const date = userDate;
     const time = formData.get("time");
     const systolic = formData.get("systolic");
     const diastolic = formData.get("diastolic");
     const pulse = formData.get("pulse");
 
-    console.log(user, date, time, systolic, diastolic, pulse);
+    try {
+        await db.query(
+            "INSERT INTO glucose_readings (user_id, date, time, systolic, diastolic, pulse) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+            [user, date, time, systolic, diastolic, pulse]);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-    // revalidatePath("/dashboard");
-
-    // const result = await db.query("SELECT * FROM users");
+export async function getEntriesForDate(currentUser, currentDate) {
+    try {
+        const response = await db.query("SELECT * FROM glucose_readings WHERE user_id = $1 AND date = $2", [currentUser, currentDate])
+        return response.rows;
+    } catch (error) {
+        console.log("There was an error fetching the latest entries");
+    }
 }
