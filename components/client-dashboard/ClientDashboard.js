@@ -7,7 +7,8 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 
 import styles from "@/app/dashboard/page.module.css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, CircleCheck, Pencil, Trash2, Undo2 } from "lucide-react";
+import { addEntry } from "@/actions/entries";
 
 export default function ClientDashboard() {
     const now = dayjs();
@@ -69,6 +70,16 @@ export default function ClientDashboard() {
             notes: 'Notes'
         }
         setEntries([...entries, newEntry])
+
+        addEntry();
+    }
+
+    const handleEditClick = (id) => {
+        console.log("Edit item", id);
+    };
+
+    const handleDelete = (id) => {
+        console.log("Delete item", id)
     }
 
     return (
@@ -120,20 +131,38 @@ export default function ClientDashboard() {
                             <div>Systolic</div>
                             <div>Diastolic</div>
                             <div>Pulse</div>
-                            <div>Notes</div>
+                            <div>Actions</div>
                         </div>
 
+                        {/* Data fetched from the server to be displayed*/}
                         {entries.map((tracker) => {
                             return (
                                 <div key={tracker.id} className={styles['filter-card']}>
-                                    <div contentEditable suppressContentEditableWarning={true}>{tracker.time}</div>
-                                    <div contentEditable suppressContentEditableWarning={true}>{tracker.systolic}</div>
-                                    <div contentEditable suppressContentEditableWarning={true}>{tracker.diastolic}</div>
-                                    <div contentEditable suppressContentEditableWarning={true}>{tracker.pulse}</div>
-                                    <div contentEditable suppressContentEditableWarning={true}>{tracker.notes}</div>
+                                    <div>{tracker.time}</div>
+                                    <div>{tracker.systolic}</div>
+                                    <div>{tracker.diastolic}</div>
+                                    <div>{tracker.pulse}</div>
+                                    <div className={styles.action}>
+                                        <button className={styles.button} onClick={() => handleEditClick(tracker.id)}><Pencil /></button>
+                                        <button className={styles.button} onClick={() => handleDelete(tracker.id)}><Trash2 /></button>
+                                    </div>
                                 </div>
                             )
                         })}
+
+
+                        {/* Data that is waiting to be submitted */}
+                        <div className={styles['filter-card']}>
+                            <div contentEditable suppressContentEditableWarning={true} autoFocus>0</div>
+                            <div contentEditable suppressContentEditableWarning={true}>0</div>
+                            <div contentEditable suppressContentEditableWarning={true}>0</div>
+                            <div contentEditable suppressContentEditableWarning={true}>0</div>
+                            <div className={styles.action}>
+                                <button className={styles.button} style={{color: "green"}} onClick={() => handleEditClick(tracker.id)}><CircleCheck /></button>
+                                <button className={styles.button} onClick={() => handleEditClick(tracker.id)}><Undo2 /></button>
+                            </div>
+                        </div>
+
 
                         <div className={styles['add-container']}>
                             <button className={styles.add} onClick={addNewEntry}>
