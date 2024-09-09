@@ -6,14 +6,14 @@ import { redirect } from "next/navigation";
 
 const saltRounds = 10;
 
-export async function signup(formData) {
+export async function signup(prevState, formData) {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm-password");
 
     if (password !== confirmPassword) {
         return {
-            error: "Passwords do not match"
+            message: "Passwords do not match"
         }
     }
 
@@ -22,7 +22,7 @@ export async function signup(formData) {
 
         if (result.rows.length > 0) {
             return {
-                error: "Account already exists"
+                message: "Account already exists"
             }
         }
 
@@ -32,7 +32,7 @@ export async function signup(formData) {
     } catch (error) {
 
         return {
-            error: "An error occurred during signup, please check back in a few minutes to see if the issue was resolved"
+            message: "An error occurred during signup, please check back in a few minutes to see if the issue was resolved"
         }
 
     }

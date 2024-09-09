@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import styles from "./page.module.css";
+import styles from "../form-shared.module.css"
 import { login } from "@/actions/login";
 import Loading from "@/components/loading/loading";
+import { CircleAlert } from "lucide-react";
 
 export default function LoginPage() {
     const [errorMessage, setErrorMessage] = useState("");
@@ -38,7 +39,7 @@ export default function LoginPage() {
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <h1 className={styles.title}>Welcome Back!</h1>
 
-                    {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+                    {errorMessage && <p className={styles.error}><CircleAlert className={styles.icon}/> {errorMessage}</p>}
 
                     <div className={styles['form-layout']}>
                         <label>Email</label>

@@ -1,9 +1,20 @@
+"use client";
+
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link"
-import styles from "./page.module.css"
+import styles from "../form-shared.module.css"
 import { signup } from "@/actions/signup";
 
+import { useFormState } from "react-dom";
+import { CircleAlert } from "lucide-react";
+
+const initialState = {
+    message: '',
+}
+
 export default function SignupPage() {
+    const [state, formAction] = useFormState(signup, initialState)
+
     return (
         <div className={styles.container}>
             <div className={styles['left-col']}>
@@ -12,8 +23,14 @@ export default function SignupPage() {
             </div>
 
             <div className={styles['right-col']}>
-                <form className={styles.form} action={signup}>
+                <form className={styles.form} action={formAction}>
                     <h1 className={styles.title}>Register an Account</h1>
+
+                    {state?.message.length > 0
+                        &&
+                        <>
+                            <p className={styles.error}> <CircleAlert className={styles.icon}/> {state?.message}</p>
+                        </>}
 
                     <div className={styles['form-layout']}>
                         <label>Email</label>
