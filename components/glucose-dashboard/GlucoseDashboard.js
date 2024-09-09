@@ -1,6 +1,6 @@
 "use client";
 
-export default function PressureDashboard() {
+export default function GlucoseDashboard() {
     return (
         <div>Test</div>
     )

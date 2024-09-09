@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 
 import { useState, useEffect } from "react";
 import { addEntry, deleteEntry, getEntriesForDate } from "@/actions/entries";
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
 import Calendar from "../calendar/Calendar";
 import DateHeader from "../date-header/DateHeader";
@@ -20,27 +21,17 @@ export default function ClientDashboard({ currentUser }) {
     // Default States
     const [isClient, setIsClient] = useState(false);
     const [selectedDay, setSelectedDay] = useState(now);
-    const [entries, setEntries] = useState([]);
 
     useEffect(() => {
         setIsClient(true);
     }, []);
 
-    useEffect(() => {
-        const fetchEntries = async () => {
-            try {
-                const entries = await getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD'));
-                setEntries(entries);
-            } catch (error) {
-                console.error("Failed to fetch entries:", error);
-            }
-        };
+    const queryClient = useQueryClient();
 
-        if (selectedDay) {
-            fetchEntries();
-        }
-    }, [currentUser, selectedDay]);
-
+    const { data: entries = [] } = useQuery({
+        queryKey: ['entries', currentUser, selectedDay.format('YYYY-MM-DD')],
+        queryFn: () => getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD')),
+    });
 
     // Client Action
     function handleDateChange(day) {
@@ -60,18 +51,28 @@ export default function ClientDashboard({ currentUser }) {
     }
 
     // Server Action
-    const saveData = async (formData) => {
-        await addEntry(currentUser, selectedDay.format('YYYY-MM-DD'), formData);
-        const latestEntries = await getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD'));
-        setEntries(latestEntries);
-    }
+    const addEntryMutation = useMutation({
+        mutationFn: (formData) => addEntry(currentUser, selectedDay.format('YYYY-MM-DD'), formData),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['entries', currentUser, selectedDay.format('YYYY-MM-DD')]);
+        },
+    });
 
     // Server Action
+    const deleteEntryMutation = useMutation({
+        mutationFn: deleteEntry,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['entries', currentUser, selectedDay.format('YYYY-MM-DD')]);
+        },
+    });
+
+    const saveData = async (formData) => {
+        await addEntryMutation.mutateAsync(formData);
+    };
+
     const handleDelete = async (formData) => {
-        await deleteEntry(formData);
-        const latestEntries = await getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD'));
-        setEntries(latestEntries);
-    }
+        await deleteEntryMutation.mutateAsync(formData);
+    };
 
     // Client Action
     const [pendingEntry, setPendingEntry] = useState([]);
@@ -133,8 +134,6 @@ export default function ClientDashboard({ currentUser }) {
                             <div>Pulse</div>
                             <div>Actions</div>
                         </div>
-
-
 
                         <Entries
                             data={entries}

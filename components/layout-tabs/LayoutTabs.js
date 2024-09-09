@@ -11,8 +11,8 @@ export default function Tabs() {
     return (
         <div className={styles.div}>
             <div className={styles['tab-container']}>
-                <Link href="/dashboard" className={pathname === '/dashboard' ? styles.active : styles.inactive}>Track Glucose</Link>
-                <Link href="/dashboard/pressure" className={pathname === '/dashboard/pressure' ? styles.active : styles.inactive}>Track Blood Pressure</Link>
+                <Link href="/dashboard" className={pathname === '/dashboard' ? styles.active : styles.inactive}>Track Pressure</Link>
+                <Link href="/dashboard/glucose" className={pathname === '/dashboard/glucose' ? styles.active : styles.inactive}>Track Glucose</Link>
             </div>
         </div>
     )

@@ -13,7 +13,7 @@ export async function addEntry(userId, userDate, formData) {
 
     try {
         await db.query(
-            "INSERT INTO glucose_readings (user_id, date, time, systolic, diastolic, pulse) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+            "INSERT INTO pressure_readings (user_id, date, time, systolic, diastolic, pulse) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
             [user, date, time, systolic, diastolic, pulse]);
     } catch (error) {
         console.log(error);
@@ -23,7 +23,7 @@ export async function addEntry(userId, userDate, formData) {
 export async function deleteEntry(formData) {
     const entry_id = formData.get("entry_id");
     try {
-        await db.query("DELETE FROM glucose_readings WHERE entry_id = $1", [entry_id])
+        await db.query("DELETE FROM pressure_readings WHERE entry_id = $1", [entry_id])
     } catch (error) {
         console.log(error);
     }
@@ -31,7 +31,7 @@ export async function deleteEntry(formData) {
 
 export async function getEntriesForDate(currentUser, currentDate) {
     try {
-        const response = await db.query("SELECT * FROM glucose_readings WHERE user_id = $1 AND date = $2", [currentUser, currentDate])
+        const response = await db.query("SELECT * FROM pressure_readings WHERE user_id = $1 AND date = $2", [currentUser, currentDate])
         return response.rows;
     } catch (error) {
         console.log("There was an error fetching the latest entries");

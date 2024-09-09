@@ -1,10 +1,10 @@
 "use server";
 
+import GlucoseDashboard from "@/components/glucose-dashboard/GlucoseDashboard";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import PressureDashboard from "@/components/pressure-dashboard/PressureDashboard";
 
-export default async function PressurePage() {
+export default async function GlucosePage() {
     const session = await auth();
 
     if (session === null) {
@@ -12,6 +12,6 @@ export default async function PressurePage() {
     }
 
     return (
-        <PressureDashboard />
+        <GlucoseDashboard />
     )
 }
