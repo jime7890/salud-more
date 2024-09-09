@@ -1,9 +1,9 @@
-import Tab from "@/components/layout-tabs/Tabs";
+import Tabs from "@/components/layout-tabs/Tabs";
 
 export default function DashboardLayout({ children }) {
     return (
         <main>
-            <Tab />
+            <Tabs />
             {children}
         </main>
     );

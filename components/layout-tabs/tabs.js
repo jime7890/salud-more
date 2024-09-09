@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import styles from "@/app/dashboard/page.module.css";
 
-export default function Tab() {
+export default function Tabs() {
     const pathname = usePathname();
 
     return (
