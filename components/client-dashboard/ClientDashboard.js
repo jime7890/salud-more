@@ -69,7 +69,7 @@ export default function ClientDashboard({ currentUser }) {
     // Server Action
     const handleDelete = async (formData) => {
         await deleteEntry(formData);
-        const latestEntries = await getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD'));
+        const latestEntries = await getEntriesForDate(currentUser);
         setEntries(latestEntries);
     }
 

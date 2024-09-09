@@ -32,7 +32,7 @@ export default function DateHeader(props) {
 
             {/* <div className={styles['date-styling']}>
                 Cesar Jimenez
-            </div> */}
+            </div> */}  
 
             {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoItem>
