@@ -19,26 +19,30 @@ export default function ClientDashboard({ currentUser }) {
 
     // Default States
     const [isClient, setIsClient] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [selectedDay, setSelectedDay] = useState(now);
     const [entries, setEntries] = useState([]);
 
     useEffect(() => {
-        setIsClient(true);
-    }, []);
+        setIsLoading(true);
 
-    useEffect(() => {
         const fetchEntries = async () => {
             try {
                 const entries = await getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD'));
                 setEntries(entries);
             } catch (error) {
                 console.error("Failed to fetch entries:", error);
+            } finally {
+                setIsLoading(false);
+                setIsClient(true);
             }
         };
 
         if (selectedDay) {
             fetchEntries();
         }
+
+
     }, [currentUser, selectedDay]);
 
 
@@ -109,11 +113,14 @@ export default function ClientDashboard({ currentUser }) {
         <div className={styles.container}>
             <div className={styles.grid}>
                 <div className={styles['left-col']}>
-                    <Calendar
-                        isClient={isClient}
-                        value={selectedDay}
-                        onChange={(newValue) => setSelectedDay(newValue)}
-                    />
+                    {!isLoading && <>
+                        <Calendar
+                            isClient={isClient}
+                            value={selectedDay}
+                            onChange={(newValue) => setSelectedDay(newValue)}
+                        />
+                    </>}
+
                 </div>
 
                 <div className={styles['right-col']}>
@@ -134,19 +141,24 @@ export default function ClientDashboard({ currentUser }) {
                             <div>Actions</div>
                         </div>
 
-                        <Entries
-                            data={entries}
-                            handleDelete={handleDelete}
-                            handleEditClick={handleEditClick}
-                        />
 
-                        <PendingEntries
-                            data={pendingEntry}
-                            insertEntry={saveData}
-                            addPendingEntry={addPendingEntry}
-                            handleUndo={handleUndo}
-                            currentTime={now.format('HH:mm')}
-                        />
+                        {!isLoading &&
+                            <>
+                                <Entries
+                                    data={entries}
+                                    handleDelete={handleDelete}
+                                    handleEditClick={handleEditClick}
+                                />
+
+                                <PendingEntries
+                                    data={pendingEntry}
+                                    insertEntry={saveData}
+                                    addPendingEntry={addPendingEntry}
+                                    handleUndo={handleUndo}
+                                    currentTime={now.format('HH:mm')}
+                                />
+                            </>}
+
                     </div>
                 </div>
             </div>
