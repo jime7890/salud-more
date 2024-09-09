@@ -13,7 +13,7 @@ export async function addEntry(userId, userDate, formData) {
 
     try {
         await db.query(
-            "INSERT INTO pressure_readings (user_id, date, time, systolic, diastolic, pulse) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+            "INSERT INTO pressure_readings (user_id, date, time, systolic, diastolic, pulse) VALUES ($1, $2, $3, $4, $5, $6)",
             [user, date, time, systolic, diastolic, pulse]);
     } catch (error) {
         console.log(error);
