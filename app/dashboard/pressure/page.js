@@ -1,6 +1,8 @@
-import { redirect } from "next/navigation";
+"use server";
+
 import { auth } from "@/lib/auth";
-import styles from "./page.module.css"
+import { redirect } from "next/navigation";
+import PressureDashboard from "@/components/pressure-dashboard/PressureDashboard";
 
 export default async function PressurePage() {
     const session = await auth();
@@ -10,6 +12,6 @@ export default async function PressurePage() {
     }
 
     return (
-        <div className={styles.container}>Test</div>
-    );
+        <PressureDashboard />
+    )
 }

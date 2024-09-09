@@ -108,11 +108,7 @@
     display: none;
   }
 
-  .filter-card > div:last-child {
-    display: none;
-  }
-  
-  .date-header > div:last-child{
+  .date-header > div:last-child {
     display: none;
   }
 }

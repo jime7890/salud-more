@@ -122,6 +122,7 @@ export default function ClientDashboard({ currentUser }) {
                         resetDate={resetDate}
                         goForwardADay={() => handleDateChange(1)}
                         goBackADay={() => handleDateChange(-1)}
+                        onChange={(newValue) => setSelectedDay(newValue)}
                     />
 
                     <div className={styles.card}>

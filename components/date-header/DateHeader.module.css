@@ -47,9 +47,20 @@
 }
 
 .reset-button:hover {
-  background-color: rgb(232, 234, 239);
+  background-color: rgb(231, 233, 238);
 }
 
 .reset-button:active {
-  background-color: rgb(227, 229, 235);
+  background-color: rgb(228, 230, 235);
+}
+
+.mobileDate{
+  display: none;
+}
+
+
+@media only screen and (max-width: 968px) {
+  .mobileDate {
+    display: block;
+  }
 }
