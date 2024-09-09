@@ -1,17 +1,13 @@
-"use server";
+"use client";
 
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react"
+
 import ClientDashboard from "@/components/client-dashboard/ClientDashboard";
 
-export default async function DashboardPage() {
-    const session = await auth();
-
-    if (session === null) {
-        redirect("/");
-    }
+export default function DashboardPage() {
+    const { data: session, status } = useSession()
 
     return (
-        <ClientDashboard currentUser={session.user.id}/>
+        <ClientDashboard currentUser={session.user.id} />
     )
 }
