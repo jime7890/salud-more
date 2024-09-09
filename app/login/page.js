@@ -4,11 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { login } from "@/actions/login";
+import Loading from "@/components/loading/loading";
 
 export default function LoginPage() {
     const [errorMessage, setErrorMessage] = useState("");
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleSubmit = async (event) => {
+        setIsLoading(true);
+
         event.preventDefault();
 
         const formData = new FormData(event.target);
@@ -17,6 +22,8 @@ export default function LoginPage() {
             await login(formData);
         } catch (error) {
             setErrorMessage("Incorrect email or password");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -43,7 +50,7 @@ export default function LoginPage() {
                         <input type="password" name="password" placeholder="Your Password" required />
                     </div>
 
-                    <button type="submit" className={styles.button}>Login</button>
+                    <button type="submit" disabled={isLoading} className={styles.button}>{isLoading ? <Loading/> : 'Login' }</button>
                     <div className={styles.registered}>Need an account? <Link href="/signup" className={styles.action}>Click Here</Link></div>
                 </form>
             </div>
