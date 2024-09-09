@@ -31,7 +31,7 @@ export async function deleteEntry(formData) {
 
 export async function getEntriesForDate(currentUser, currentDate) {
     try {
-        const response = await db.query("SELECT * FROM pressure_readings WHERE user_id = $1 AND date = $2", [currentUser, currentDate])
+        const response = await db.query("SELECT * FROM pressure_readings WHERE user_id = $1 AND date = $2 ORDER BY time", [currentUser, currentDate])
         return response.rows;
     } catch (error) {
         console.log("There was an error fetching the latest entries");

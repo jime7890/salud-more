@@ -1,25 +1,23 @@
 .filter-card {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   border-radius: 6px;
-  padding: 1rem;
+  padding: 14px 16px;
   margin-bottom: 1em;
   text-align: left;
 
   background-color: rgb(245, 246, 248);
 }
 
-.filter-card:nth-child(1) {
-  font-weight: 500;
-  background-color: rgb(231, 233, 238);
-}
-
 .filter-card > div {
   display: flex;
-  align-items: center;
-  gap: 1rem;
   width: 15%;
+}
+
+.filter-card > div:last-child {
+  gap: 1rem;
 }
 
 .filter-card > input {
@@ -47,4 +45,35 @@
 
 .button:hover {
   color: rgb(66, 69, 73);
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.subtitle {
+  font-size: 0.625rem;
+  font-weight: 400;
+  color: #161616;
+}
+
+.desktop-card,
+.mobile-card {
+  font-weight: 500;
+  background-color: rgb(231, 233, 238);
+}
+
+.mobile-card {
+  display: none;
+}
+
+@media only screen and (max-width: 968px) {
+  .desktop-card {
+    display: none;
+  }
+
+  .mobile-card {
+    display: flex;
+  }
 }

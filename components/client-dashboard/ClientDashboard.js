@@ -127,11 +127,46 @@ export default function ClientDashboard({ currentUser }) {
                     />
 
                     <div className={styles.card}>
-                        <div className={shared['filter-card']}>
+                        <div className={`${shared['filter-card']} ${shared['desktop-card']}`}>
                             <div>Time</div>
-                            <div>Systolic</div>
-                            <div>Diastolic</div>
-                            <div>Pulse</div>
+
+                            <div className={shared.flex}>
+                                <div className={shared.title}>Systolic</div>
+                                <div className={shared.subtitle}>mmHg</div>
+                            </div>
+
+                            <div className={shared.flex}>
+                                <div className={shared.title}>Diastolic</div>
+                                <div className={shared.subtitle}>mmHg</div>
+                            </div>
+
+                            <div className={shared.flex}>
+                                <div className={shared.title}>Pulse</div>
+                                <div className={shared.subtitle}>/min</div>
+                            </div>
+
+                            <div>Actions</div>
+                        </div>
+
+
+                        <div className={`${shared['filter-card']} ${shared['mobile-card']}`}>
+                            <div>Time</div>
+
+                            <div className={shared.flex}>
+                                <div className={shared.title}>Sys</div>
+                                <div className={shared.subtitle}>mmHg</div>
+                            </div>
+
+                            <div className={shared.flex}>
+                                <div className={shared.title}>Dia</div>
+                                <div className={shared.subtitle}>mmHg</div>
+                            </div>
+
+                            <div className={shared.flex}>
+                                <div className={shared.title}>Pulse</div>
+                                <div className={shared.subtitle}>/min</div>
+                            </div>
+
                             <div>Actions</div>
                         </div>
 
@@ -139,6 +174,7 @@ export default function ClientDashboard({ currentUser }) {
                             data={entries}
                             handleDelete={handleDelete}
                             handleEditClick={handleEditClick}
+                            dayjs={dayjs}
                         />
 
                         <PendingEntries
