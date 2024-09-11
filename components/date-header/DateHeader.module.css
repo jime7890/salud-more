@@ -16,8 +16,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  border: 1px solid rgb(212, 212, 212);
   padding: 8px 16px;
+  border: 1px solid #d4d4d4;
   border-radius: 6px;
 }
 
@@ -28,7 +28,7 @@
 
 .button {
   all: unset;
-  color: rgb(95, 99, 104);
+  color: #5f6368;
   cursor: pointer;
 
   display: flex;
@@ -38,7 +38,7 @@
 }
 
 .button:hover {
-  color: rgb(66, 69, 73);
+  color: #424549;
 }
 
 .reset-button {
@@ -47,17 +47,16 @@
 }
 
 .reset-button:hover {
-  background-color: rgb(231, 233, 238);
+  background-color: #e7e9ee;
 }
 
 .reset-button:active {
-  background-color: rgb(228, 230, 235);
+  background-color: #e4e6eb;
 }
 
-.mobileDate{
+.mobileDate {
   display: none;
 }
-
 
 @media only screen and (max-width: 968px) {
   .mobileDate {

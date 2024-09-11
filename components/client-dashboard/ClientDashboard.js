@@ -108,83 +108,81 @@ export default function ClientDashboard({ currentUser }) {
 
     return (
         <div className={styles.container}>
-            <div className={styles.grid}>
-                <div className={styles['left-col']}>
-                    <Calendar
-                        isClient={isClient}
-                        value={selectedDay}
-                        onChange={(newValue) => setSelectedDay(newValue)}
-                    />
-                </div>
+            <div className={styles['left-col']}>
+                <Calendar
+                    isClient={isClient}
+                    value={selectedDay}
+                    onChange={(newValue) => setSelectedDay(newValue)}
+                />
+            </div>
 
-                <div className={styles['right-col']}>
-                    <DateHeader
-                        selectedDay={selectedDay}
-                        resetDate={resetDate}
-                        goForwardADay={() => handleDateChange(1)}
-                        goBackADay={() => handleDateChange(-1)}
-                        onChange={(newValue) => setSelectedDay(newValue)}
-                    />
+            <div className={styles['right-col']}>
+                <DateHeader
+                    selectedDay={selectedDay}
+                    resetDate={resetDate}
+                    goForwardADay={() => handleDateChange(1)}
+                    goBackADay={() => handleDateChange(-1)}
+                    onChange={(newValue) => setSelectedDay(newValue)}
+                />
 
-                    <div className={styles.card}>
-                        <div className={`${shared['filter-card']} ${shared['desktop-card']}`}>
-                            <div>Time</div>
+                <div className={shared.card}>
+                    <div className={`${shared['filter-card']} ${shared['desktop-card']}`}>
+                        <div>Time</div>
 
-                            <div className={shared.flex}>
-                                <div className={shared.title}>Systolic</div>
-                                <div className={shared.subtitle}>mmHg</div>
-                            </div>
-
-                            <div className={shared.flex}>
-                                <div className={shared.title}>Diastolic</div>
-                                <div className={shared.subtitle}>mmHg</div>
-                            </div>
-
-                            <div className={shared.flex}>
-                                <div className={shared.title}>Pulse</div>
-                                <div className={shared.subtitle}>/min</div>
-                            </div>
-
-                            <div>Actions</div>
+                        <div className={shared.flex}>
+                            <div className={shared.title}>Systolic</div>
+                            <div className={shared.subtitle}>mmHg</div>
                         </div>
 
-
-                        <div className={`${shared['filter-card']} ${shared['mobile-card']}`}>
-                            <div>Time</div>
-
-                            <div className={shared.flex}>
-                                <div className={shared.title}>Sys</div>
-                                <div className={shared.subtitle}>mmHg</div>
-                            </div>
-
-                            <div className={shared.flex}>
-                                <div className={shared.title}>Dia</div>
-                                <div className={shared.subtitle}>mmHg</div>
-                            </div>
-
-                            <div className={shared.flex}>
-                                <div className={shared.title}>Pulse</div>
-                                <div className={shared.subtitle}>/min</div>
-                            </div>
-
-                            <div>Actions</div>
+                        <div className={shared.flex}>
+                            <div className={shared.title}>Diastolic</div>
+                            <div className={shared.subtitle}>mmHg</div>
                         </div>
 
-                        <Entries
-                            data={entries}
-                            handleDelete={handleDelete}
-                            handleEditClick={handleEditClick}
-                            dayjs={dayjs}
-                        />
+                        <div className={shared.flex}>
+                            <div className={shared.title}>Pulse</div>
+                            <div className={shared.subtitle}>/min</div>
+                        </div>
 
-                        <PendingEntries
-                            data={pendingEntry}
-                            insertEntry={saveData}
-                            addPendingEntry={addPendingEntry}
-                            handleUndo={handleUndo}
-                            currentTime={now.format('HH:mm')}
-                        />
+                        <div>Actions</div>
                     </div>
+
+
+                    <div className={`${shared['filter-card']} ${shared['mobile-card']}`}>
+                        <div>Time</div>
+
+                        <div className={shared.flex}>
+                            <div className={shared.title}>Sys</div>
+                            <div className={shared.subtitle}>mmHg</div>
+                        </div>
+
+                        <div className={shared.flex}>
+                            <div className={shared.title}>Dia</div>
+                            <div className={shared.subtitle}>mmHg</div>
+                        </div>
+
+                        <div className={shared.flex}>
+                            <div className={shared.title}>Pulse</div>
+                            <div className={shared.subtitle}>/min</div>
+                        </div>
+
+                        <div>Actions</div>
+                    </div>
+
+                    <Entries
+                        data={entries}
+                        handleDelete={handleDelete}
+                        handleEditClick={handleEditClick}
+                        dayjs={dayjs}
+                    />
+
+                    <PendingEntries
+                        data={pendingEntry}
+                        insertEntry={saveData}
+                        addPendingEntry={addPendingEntry}
+                        handleUndo={handleUndo}
+                        currentTime={now.format('HH:mm')}
+                    />
                 </div>
             </div>
         </div>

@@ -9,8 +9,8 @@ export default async function MainHeader() {
     return (
         <nav className={styles.header}>
             <div className={styles.content}>
-                <div className={styles.logo}>
-                    <Link href="/">Saludmore</Link>
+                <div>
+                    <Link href="/" className={styles.logo}>Saludmore</Link>
                 </div>
 
                 {session !== null ?
@@ -30,7 +30,7 @@ export default async function MainHeader() {
                         </Link>
 
                         <Link href="/signup">
-                            Signup  
+                            Signup
                         </Link>
                     </div>
                 }

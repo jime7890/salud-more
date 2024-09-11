@@ -9,11 +9,9 @@ export default function Tabs() {
     const pathname = usePathname();
 
     return (
-        <div className={styles.div}>
-            <div className={styles['tab-container']}>
-                <Link href="/dashboard" className={pathname === '/dashboard' ? styles.active : styles.inactive}>Track Pressure</Link>
-                <Link href="/dashboard/glucose" className={pathname === '/dashboard/glucose' ? styles.active : styles.inactive}>Track Glucose</Link>
-            </div>
+        <div className={styles['tab-container']}>
+            <Link href="/dashboard" className={pathname === '/dashboard' ? styles.active : styles.inactive}>Track Pressure</Link>
+            <Link href="/dashboard/glucose" className={pathname === '/dashboard/glucose' ? styles.active : styles.inactive}>Track Glucose</Link>
         </div>
     )
 }

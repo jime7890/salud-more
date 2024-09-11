@@ -1,14 +1,19 @@
+.card {
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #d4d4d4;
+}
+
 .filter-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   border-radius: 6px;
   padding: 14px 16px;
   margin-bottom: 1em;
   text-align: left;
 
-  background-color: rgb(245, 246, 248);
+  background-color: #f5f6f8;
 }
 
 .filter-card > div {
@@ -22,10 +27,9 @@
 
 .filter-card > input {
   display: flex;
-  gap: 1rem;
   width: 15%;
   border-radius: 6px;
-  border: 1px solid rgb(190, 190, 190);
+  border: 1px solid #bebebe;
 }
 
 .filter-card > input:first-child {
@@ -34,7 +38,7 @@
 
 .button {
   all: unset;
-  color: rgb(95, 99, 104);
+  color: #5f6368;
   cursor: pointer;
 
   display: flex;
@@ -44,7 +48,7 @@
 }
 
 .button:hover {
-  color: rgb(66, 69, 73);
+  color: #424549;
 }
 
 .flex {
@@ -61,7 +65,7 @@
 .desktop-card,
 .mobile-card {
   font-weight: 500;
-  background-color: rgb(231, 233, 238);
+  background-color: #e7e9ee;
 }
 
 .mobile-card {
