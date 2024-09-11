@@ -8,6 +8,6 @@ export default function GlucosePage() {
     const { data: session, status } = useSession()
 
     return (
-        <GlucoseDashboard />
+        <GlucoseDashboard currentUser={session.user.id} />
     )
 }

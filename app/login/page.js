@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "../form-shared.module.css"
 import { login } from "@/actions/login";
 import Loading from "@/components/loading/loading";
-import { CircleAlert } from "lucide-react";
+import { CircleAlert, LockKeyhole, Mail } from "lucide-react";
 
 export default function LoginPage() {
     const [errorMessage, setErrorMessage] = useState("");
@@ -39,19 +39,21 @@ export default function LoginPage() {
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <h1 className={styles.title}>Welcome Back!</h1>
 
-                    {errorMessage && <p className={styles.error}><CircleAlert className={styles.icon}/> {errorMessage}</p>}
+                    {errorMessage && <p className={styles.error}><CircleAlert className={styles.icon} /> {errorMessage}</p>}
 
                     <div className={styles['form-layout']}>
                         <label>Email</label>
                         <input type="email" name="email" placeholder="Your Email" autoFocus required />
+                        <Mail className={styles.suffix} />
                     </div>
 
                     <div className={styles['form-layout']}>
                         <label>Password</label>
                         <input type="password" name="password" placeholder="Your Password" required />
+                        <LockKeyhole className={styles.suffix} />
                     </div>
 
-                    <button type="submit" disabled={isLoading} className={styles.button}>{isLoading ? <Loading/> : 'Login' }</button>
+                    <button type="submit" disabled={isLoading} className={styles.button}>{isLoading ? <Loading /> : 'Login'}</button>
                     <div className={styles.registered}>Need an account? <Link href="/signup" className={styles.action}>Click Here</Link></div>
                 </form>
             </div>

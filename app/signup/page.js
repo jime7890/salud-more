@@ -6,7 +6,7 @@ import styles from "../form-shared.module.css"
 import { signup } from "@/actions/signup";
 
 import { useFormState } from "react-dom";
-import { CircleAlert } from "lucide-react";
+import { CircleAlert, Mail } from "lucide-react";
 
 const initialState = {
     message: '',
@@ -26,15 +26,12 @@ export default function SignupPage() {
                 <form className={styles.form} action={formAction}>
                     <h1 className={styles.title}>Register an Account</h1>
 
-                    {state?.message.length > 0
-                        &&
-                        <>
-                            <p className={styles.error}> <CircleAlert className={styles.icon}/> {state?.message}</p>
-                        </>}
+                    {state?.message.length > 0 && <> <p className={styles.error}> <CircleAlert className={styles.icon} /> {state?.message}</p></>}
 
                     <div className={styles['form-layout']}>
                         <label>Email</label>
                         <input type="email" name="email" placeholder="Your Email" autoFocus required></input>
+                        <Mail className={styles.suffix} />
                     </div>
 
                     <div className={styles['form-layout']}>
