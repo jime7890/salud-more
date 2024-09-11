@@ -15,18 +15,15 @@ import styles from "@/app/dashboard/page.module.css";
 import shared from "../shared.module.css";
 
 export default function ClientDashboard({ currentUser }) {
-    // Gets Current Day
-    const now = dayjs();
-
+    
     // Default States
+    const [selectedDay, setSelectedDay] = useState(dayjs());
     const [isClient, setIsClient] = useState(false);
-    const [selectedDay, setSelectedDay] = useState(now);
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         setIsClient(true);
     }, []);
-
-    const queryClient = useQueryClient();
 
     const { data: entries = [] } = useQuery({
         queryKey: ['entries', currentUser, selectedDay.format('YYYY-MM-DD')],
@@ -103,7 +100,7 @@ export default function ClientDashboard({ currentUser }) {
 
     // Client Action
     function resetDate() {
-        setSelectedDay(now);
+        setSelectedDay(dayjs());
     }
 
     return (
@@ -147,7 +144,6 @@ export default function ClientDashboard({ currentUser }) {
                         <div>Actions</div>
                     </div>
 
-
                     <div className={`${shared['filter-card']} ${shared['mobile-card']}`}>
                         <div>Time</div>
 
@@ -181,7 +177,7 @@ export default function ClientDashboard({ currentUser }) {
                         insertEntry={saveData}
                         addPendingEntry={addPendingEntry}
                         handleUndo={handleUndo}
-                        currentTime={now.format('HH:mm')}
+                        currentTime={selectedDay.format('HH:mm')}
                     />
                 </div>
             </div>
