@@ -20,6 +20,10 @@
   }
 }
 
+.tab-styling {
+  border-bottom: 1px solid #f1f1f1;
+}
+
 .tab-container {
   display: flex;
   gap: 0.35rem;
@@ -29,7 +33,6 @@
   padding: 36px 16px 0px 16px;
 
   font-size: 0.813rem;
-  border-bottom: 1px solid #f1f1f1;
 }
 
 .tab-container > a {
