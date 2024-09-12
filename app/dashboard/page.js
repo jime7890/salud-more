@@ -2,12 +2,12 @@
 
 import { useSession } from "next-auth/react"
 
-import ClientDashboard from "@/components/client-dashboard/ClientDashboard";
+import PressureDashboard from "@/components/pressure-dashboard/PressureDashboard";
 
 export default function DashboardPage() {
     const { data: session, status } = useSession()
 
     return (
-        <ClientDashboard currentUser={session.user.id} />
+        <PressureDashboard currentUser={session.user.id} />
     )
 }

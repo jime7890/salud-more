@@ -13,7 +13,7 @@
   margin-bottom: 1em;
   text-align: left;
 
-  background-color: #f7f8fc;
+  background-color: #f0f1f5;
 }
 
 .filter-card > div {
@@ -77,6 +77,28 @@
 
 .mobile-card {
   display: none;
+}
+
+.add-container {
+  display: flex;
+  justify-content: right;
+}
+
+.add {
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem;
+  color: #ffffff;
+  background-color: #1976d2;
+  cursor: pointer;
+}
+
+.add:hover {
+  background-color: #0078e1;
+}
+
+.add:active {
+  background-color: #0270d0;
 }
 
 @media only screen and (max-width: 968px) {

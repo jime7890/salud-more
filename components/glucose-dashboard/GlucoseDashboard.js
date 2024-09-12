@@ -2,25 +2,34 @@
 
 import dayjs from 'dayjs';
 
+import { useState, useEffect } from "react";
+import { addEntry, deleteEntry, getEntriesForDate } from "@/actions/glucose";
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+
 import Calendar from "../calendar/Calendar";
 import DateHeader from "../date-header/DateHeader";
-import Entries from '../entry-list/EntryList';
-import PendingEntries from '../pending-entry/PendingEntryForm';
 
 import styles from "@/app/dashboard/page.module.css";
 import shared from "../shared.module.css";
-import { useEffect, useState } from 'react';
-import test from "../pending-entry/PendingEntryForm.module.css"
-import { CircleCheck, Undo2 } from 'lucide-react';
 
-export default function GlucoseDashboard() {
-    const [isClient, setIsClient] = useState(false);
+import { CircleCheck, Pencil, Trash2, Undo2 } from 'lucide-react';
+
+export default function GlucoseDashboard({ currentUser }) {
+    // Default States
     const [selectedDay, setSelectedDay] = useState(dayjs());
+    const [isClient, setIsClient] = useState(false);
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         setIsClient(true);
-    }, [])
+    }, []);
 
+    const { data: entries = [] } = useQuery({
+        queryKey: ['glucose', currentUser, selectedDay.format('YYYY-MM-DD')],
+        queryFn: () => getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD')),
+    });
+
+    // Client Action
     function handleDateChange(day) {
         setSelectedDay((prevState) => {
             if (day === -1) {
@@ -37,26 +46,60 @@ export default function GlucoseDashboard() {
         });
     }
 
-    function resetDate() {
-        setSelectedDay(dayjs());
-    }
+    // Server Action
+    const addEntryMutation = useMutation({
+        mutationFn: (formData) => addEntry(currentUser, selectedDay.format('YYYY-MM-DD'), formData),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['glucose', currentUser, selectedDay.format('YYYY-MM-DD')]);
+        },
+    });
 
+    // Server Action
+    const deleteEntryMutation = useMutation({
+        mutationFn: deleteEntry,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['glucose', currentUser, selectedDay.format('YYYY-MM-DD')]);
+        },
+    });
+
+    const saveData = async (formData) => {
+        await addEntryMutation.mutateAsync(formData);
+    };
+
+    const handleDelete = async (formData) => {
+        await deleteEntryMutation.mutateAsync(formData);
+    };
+
+    // Client Action
     const [pendingEntry, setPendingEntry] = useState([]);
     const addPendingEntry = () => {
         const newEntry = {
             id: Date.now(),
             time: 'Time',
             glucose: '0',
-            period: '',
+            period: '0',
             notes: 'Notes'
         }
         setPendingEntry([...pendingEntry, newEntry])
     }
 
-
-    const saveData = async (formData) => {
-        await addEntryMutation.mutateAsync(formData);
+    // Client Action
+    const handleEditClick = (id) => {
+        console.log("Edit item", id);
     };
+
+    // Client Action
+    const handleUndo = (event, id) => {
+        event.preventDefault();
+        setPendingEntry(pendingEntry.filter((prevState) =>
+            prevState.id !== id
+        ))
+    }
+
+    // Client Action
+    function resetDate() {
+        setSelectedDay(dayjs());
+    }
 
     return (
         <div className={styles.container}>
@@ -95,32 +138,49 @@ export default function GlucoseDashboard() {
                         <div>Actions</div>
                     </div>
 
-                    {pendingEntry.map((entry) => {
+                    {entries.map((tracker) => {
+                        const time = dayjs(tracker.time, 'HH:mm:ss');
+                        const formattedTime = time.format('h:mm A');
+
                         return (
-                            <form action={saveData} key={entry.id} className={shared['filter-card']}>
-                                <input type="time" name="time" defaultValue={selectedDay.format('HH:mm')}></input>
-                                <input type="number" name="systolic"></input>
-                                <select>
-                                    <option>Breakfast</option>
-                                </select>
-                                <input />
+                            <form action={handleDelete} key={tracker.entry_id} className={shared['filter-card']}>
+                                <input type="hidden" value={tracker.entry_id} name="entry_id" />
+                                <div>{formattedTime}</div>
+                                <div>{tracker.glucose}</div>
+                                <div>{tracker.period}</div>
+                                <div>{tracker.notes}</div>
                                 <div>
-                                    <button className={shared.button} type="submit" style={{ color: "green" }}><CircleCheck /></button>
-                                    <button className={shared.button} onClick={(event) => props.handleUndo(event, entry.id)}><Undo2 /></button>
+                                    <button className={shared.button} onClick={() => handleEditClick(tracker.id)}><Pencil /></button>
+                                    <button className={shared.button} type="submit"><Trash2 /></button>
                                 </div>
                             </form>
                         )
                     })}
 
-                    <div className={test['add-container']}>
-                        <button className={test.add} onClick={addPendingEntry}>
+                    {pendingEntry.map((entry) => {
+                        return (
+                            <form action={saveData} key={entry.id} className={shared['filter-card']}>
+                                <input type="time" name="time" defaultValue={selectedDay.format('HH:mm')}></input>
+                                <input type="number" name="glucose"></input>
+                                <select name="period">
+                                    <option>Breakfast</option>
+                                </select>
+                                <input type="text" name="notes" />
+                                <div>
+                                    <button className={shared.button} type="submit" style={{ color: "green" }}><CircleCheck /></button>
+                                    <button className={shared.button} onClick={(event) => handleUndo(event, entry.id)}><Undo2 /></button>
+                                </div>
+                            </form>
+                        )
+                    })}
+
+                    <div className={shared['add-container']}>
+                        <button className={shared.add} onClick={addPendingEntry}>
                             Add Tracker
                         </button>
                     </div>
+                    
                 </div>
-
-
-
             </div>
         </div>
     )

@@ -3,19 +3,18 @@
 import dayjs from 'dayjs';
 
 import { useState, useEffect } from "react";
-import { addEntry, deleteEntry, getEntriesForDate } from "@/actions/entries";
+import { addEntry, deleteEntry, getEntriesForDate } from "@/actions/pressure";
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
 import Calendar from "../calendar/Calendar";
 import DateHeader from "../date-header/DateHeader";
-import Entries from '../entry-list/EntryList';
-import PendingEntries from '../pending-entry/PendingEntryForm';
 
 import styles from "@/app/dashboard/page.module.css";
 import shared from "../shared.module.css";
 
-export default function ClientDashboard({ currentUser }) {
+import { CircleCheck, Pencil, Trash2, Undo2 } from 'lucide-react';
 
+export default function PressureDashboard({ currentUser }) {
     // Default States
     const [selectedDay, setSelectedDay] = useState(dayjs());
     const [isClient, setIsClient] = useState(false);
@@ -26,7 +25,7 @@ export default function ClientDashboard({ currentUser }) {
     }, []);
 
     const { data: entries = [] } = useQuery({
-        queryKey: ['entries', currentUser, selectedDay.format('YYYY-MM-DD')],
+        queryKey: ['pressure', currentUser, selectedDay.format('YYYY-MM-DD')],
         queryFn: () => getEntriesForDate(currentUser, selectedDay.format('YYYY-MM-DD')),
     });
 
@@ -51,7 +50,7 @@ export default function ClientDashboard({ currentUser }) {
     const addEntryMutation = useMutation({
         mutationFn: (formData) => addEntry(currentUser, selectedDay.format('YYYY-MM-DD'), formData),
         onSuccess: () => {
-            queryClient.invalidateQueries(['entries', currentUser, selectedDay.format('YYYY-MM-DD')]);
+            queryClient.invalidateQueries(['pressure', currentUser, selectedDay.format('YYYY-MM-DD')]);
         },
     });
 
@@ -59,7 +58,7 @@ export default function ClientDashboard({ currentUser }) {
     const deleteEntryMutation = useMutation({
         mutationFn: deleteEntry,
         onSuccess: () => {
-            queryClient.invalidateQueries(['entries', currentUser, selectedDay.format('YYYY-MM-DD')]);
+            queryClient.invalidateQueries(['pressure', currentUser, selectedDay.format('YYYY-MM-DD')]);
         },
     });
 
@@ -164,20 +163,46 @@ export default function ClientDashboard({ currentUser }) {
                         <div>Actions</div>
                     </div>
 
-                    <Entries
-                        data={entries}
-                        handleDelete={handleDelete}
-                        handleEditClick={handleEditClick}
-                        dayjs={dayjs}
-                    />
+                    {entries.map((tracker) => {
+                        const time = dayjs(tracker.time, 'HH:mm:ss');
+                        const formattedTime = time.format('h:mm A');
 
-                    <PendingEntries
-                        data={pendingEntry}
-                        insertEntry={saveData}
-                        addPendingEntry={addPendingEntry}
-                        handleUndo={handleUndo}
-                        currentTime={selectedDay.format('HH:mm')}
-                    />
+                        return (
+                            <form action={handleDelete} key={tracker.entry_id} className={shared['filter-card']}>
+                                <input type="hidden" value={tracker.entry_id} name="entry_id" />
+                                <div>{formattedTime}</div>
+                                <div>{tracker.systolic}</div>
+                                <div>{tracker.diastolic}</div>
+                                <div>{tracker.pulse}</div>
+                                <div>
+                                    <button className={shared.button} onClick={() => handleEditClick(tracker.id)}><Pencil /></button>
+                                    <button className={shared.button} type="submit"><Trash2 /></button>
+                                </div>
+                            </form>
+                        )
+                    })}
+
+                    {pendingEntry.map((entry) => {
+                        return (
+                            <form action={saveData} key={entry.id} className={shared['filter-card']}>
+                                <input type="time" name="time" defaultValue={selectedDay.format('HH:mm')}></input>
+                                <input type="number" name="systolic"></input>
+                                <input type="number" name="diastolic"></input>
+                                <input type="number" name="pulse"></input>
+                                <div>
+                                    <button className={shared.button} type="submit" style={{ color: "green" }}><CircleCheck /></button>
+                                    <button className={shared.button} onClick={(event) => handleUndo(event, entry.id)}><Undo2 /></button>
+                                </div>
+                            </form>
+                        )
+                    })}
+
+                    <div className={shared['add-container']}>
+                        <button className={shared.add} onClick={addPendingEntry}>
+                            Add Tracker
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
