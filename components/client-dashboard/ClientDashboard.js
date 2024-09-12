@@ -15,7 +15,7 @@ import styles from "@/app/dashboard/page.module.css";
 import shared from "../shared.module.css";
 
 export default function ClientDashboard({ currentUser }) {
-    
+
     // Default States
     const [selectedDay, setSelectedDay] = useState(dayjs());
     const [isClient, setIsClient] = useState(false);
@@ -119,7 +119,6 @@ export default function ClientDashboard({ currentUser }) {
                     resetDate={resetDate}
                     goForwardADay={() => handleDateChange(1)}
                     goBackADay={() => handleDateChange(-1)}
-                    onChange={(newValue) => setSelectedDay(newValue)}
                 />
 
                 <div className={shared.card}>

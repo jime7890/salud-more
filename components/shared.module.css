@@ -21,6 +21,13 @@
   width: 15%;
 }
 
+.filter-card > select {
+  display: flex;
+  width: 15%;
+  border-radius: 6px;
+  border: 1px solid #bebebe;
+}
+
 .filter-card > div:last-child {
   gap: 1rem;
 }
