@@ -21,7 +21,7 @@
 }
 
 .tab-styling {
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #eeeeee;
 }
 
 .tab-container {
@@ -43,11 +43,11 @@
 }
 
 .active {
-  background-color: #e7e9ee;
+  background-color: #e9ecf3;
 }
 
 .inactive:hover {
-  background-color: #e7e9ee;
+  background-color: #e9ecf3;
 }
 
 /* Main Container */

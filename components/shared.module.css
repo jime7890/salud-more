@@ -13,7 +13,7 @@
   margin-bottom: 1em;
   text-align: left;
 
-  background-color: #f5f6f8;
+  background-color: #f7f8fc;
 }
 
 .filter-card > div {
@@ -65,7 +65,7 @@
 .desktop-card,
 .mobile-card {
   font-weight: 500;
-  background-color: #e7e9ee;
+  background-color: #e9ecf3;
 }
 
 .mobile-card {
