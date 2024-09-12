@@ -132,8 +132,22 @@ export default function GlucoseDashboard({ currentUser }) {
                             <div className={shared.title}>Period</div>
                             <div className={shared.subtitle}>When</div>
                         </div>
+                        
+                        <div>Actions</div>
+                    </div>
 
-                        <div>Notes</div>
+                    <div className={`${shared['filter-card']} ${shared['mobile-card']}`}>
+                        <div>Time</div>
+
+                        <div className={shared.flex}>
+                            <div className={shared.title}>Glucose</div>
+                            <div className={shared.subtitle}>mg/dL</div>
+                        </div>
+
+                        <div className={shared.flex}>
+                            <div className={shared.title}>Period</div>
+                            <div className={shared.subtitle}>When</div>
+                        </div>
 
                         <div>Actions</div>
                     </div>
@@ -147,8 +161,7 @@ export default function GlucoseDashboard({ currentUser }) {
                                 <input type="hidden" value={tracker.entry_id} name="entry_id" />
                                 <div>{formattedTime}</div>
                                 <div>{tracker.glucose}</div>
-                                <div>{tracker.period}</div>
-                                <div>{tracker.notes}</div>
+                                <div className={shared.period}>{tracker.period}</div>
                                 <div>
                                     <button className={shared.button} onClick={() => handleEditClick(tracker.id)}><Pencil /></button>
                                     <button className={shared.button} type="submit"><Trash2 /></button>
@@ -164,8 +177,12 @@ export default function GlucoseDashboard({ currentUser }) {
                                 <input type="number" name="glucose"></input>
                                 <select name="period">
                                     <option>Breakfast</option>
+                                    <option>Lunch</option>
+                                    <option>Dinner</option>
+                                    <option>Before Breakfast</option>
+                                    <option>Before Lunch</option>
+                                    <option>Before Dinner</option>
                                 </select>
-                                <input type="text" name="notes" />
                                 <div>
                                     <button className={shared.button} type="submit" style={{ color: "green" }}><CircleCheck /></button>
                                     <button className={shared.button} onClick={(event) => handleUndo(event, entry.id)}><Undo2 /></button>
@@ -179,7 +196,7 @@ export default function GlucoseDashboard({ currentUser }) {
                             Add Tracker
                         </button>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
