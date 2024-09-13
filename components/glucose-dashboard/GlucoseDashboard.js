@@ -12,7 +12,7 @@ import DateHeader from "../date-header/DateHeader";
 import styles from "@/app/dashboard/page.module.css";
 import shared from "../shared.module.css";
 
-import { CircleCheck, Pencil, Trash2, Undo2 } from 'lucide-react';
+import { CircleCheck, Clock, Heart, Pencil, Trash2, Undo2 } from 'lucide-react';
 
 export default function GlucoseDashboard({ currentUser }) {
     // Default States
@@ -132,7 +132,7 @@ export default function GlucoseDashboard({ currentUser }) {
                             <div className={shared.title}>Period</div>
                             <div className={shared.subtitle}>When</div>
                         </div>
-                        
+
                         <div>Actions</div>
                     </div>
 
